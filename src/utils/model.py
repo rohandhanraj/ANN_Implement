@@ -1,6 +1,8 @@
 import tensorflow as tf
 from datetime import time
 import os
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def create_model(LOSS_FUNCTION, OPTIMIZER, METRICS, NUM_CLASSES):
@@ -28,3 +30,20 @@ def save_model(model, model_name, model_dir):
     unique_filename = get_unique_filename(model_name)
     path_to_model = os.path.join(model_dir, unique_filename)
     model.save(path_to_model)
+
+def plot_history(history, file_name):
+    """It plots the fitting history and saves it to a file.
+    Args:
+        history: Evaluation data during training
+        file_name (str): Filename to save the plot to
+    """
+    #logging.info('Plotting training history')
+    pd.DataFrame(history.history).plot(figsize=(10,7))
+    plt.grid(True)
+    plt.show()
+    plot_dir = "plots"
+    os.makedirs(plot_dir, exist_ok=True) # ONLY CREATE IF MODEL_DIR DOESN"T EXISTS
+    plotPath = os.path.join(plot_dir, file_name) # model/filename
+    plt.savefig(plotPath)
+    #logging.info('Saving the plots at {plotPath}')
+    #logging.info("#####"*15)
