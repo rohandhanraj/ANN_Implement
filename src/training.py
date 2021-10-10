@@ -1,6 +1,6 @@
 from src.utils.common import read_config
 from src.utils.data_mgmt import get_data
-from src.utils.model import create_model, save_model
+from src.utils.model import create_model, save_model, plot_history
 import os
 
 import argparse
@@ -34,6 +34,9 @@ def training(config_path):
     model_name = config["artifacts"]["model_name"]
 
     save_model(model, model_name, model_dir_path)
+
+    file_name = model_name[:-3]
+    plot_history(history, file_name)
 
 
 if __name__ == '__main__':
