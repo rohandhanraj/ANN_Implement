@@ -31,7 +31,7 @@ def save_model(model, model_name, model_dir):
     path_to_model = os.path.join(model_dir, unique_filename)
     model.save(path_to_model)
 
-def plot_history(history, file_name):
+def plot_history(history, file_name, plot_dir):
     """It plots the fitting history and saves it to a file.
     Args:
         history: Evaluation data during training
@@ -41,9 +41,8 @@ def plot_history(history, file_name):
     pd.DataFrame(history.history).plot(figsize=(10,7))
     plt.grid(True)
     plt.show()
-    plot_dir = "plots"
-    os.makedirs(plot_dir, exist_ok=True) # ONLY CREATE IF MODEL_DIR DOESN"T EXISTS
-    plotPath = os.path.join(plot_dir, file_name) # model/filename
+    unique_filename = get_unique_filename(file_name)
+    plotPath = os.path.join(plot_dir, unique_filename)
     plt.savefig(plotPath)
     #logging.info('Saving the plots at {plotPath}')
     #logging.info("#####"*15)

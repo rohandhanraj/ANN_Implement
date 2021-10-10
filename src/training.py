@@ -26,8 +26,8 @@ def training(config_path):
                         validation_data=VALIDATION_SET)
 
     artifacts_dir = config["artifacts"]["artifacts_dir"]
-    model_dir = config["artifacts"]["model_dir"]
 
+    model_dir = config["artifacts"]["model_dir"]
     model_dir_path = os.path.join(artifacts_dir, model_dir)
     os.makedirs(model_dir_path, exist_ok=True)
 
@@ -35,8 +35,13 @@ def training(config_path):
 
     save_model(model, model_name, model_dir_path)
 
+    plot_dir = config["artifacts"]["plots_dir"]
+    plot_path = os.path.join(artifacts_dir, plot_dir)
+    os.makedirs(plot_path, exist_ok=True)
+
     file_name = model_name[:-3]
-    plot_history(history, file_name)
+
+    plot_history(history, file_name, plot_path)
 
 
 if __name__ == '__main__':
